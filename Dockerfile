@@ -42,10 +42,11 @@ RUN useradd -g nginx -M nginx -s /sbin/nologin
 RUN yum install -y git
 RUN mkdir -p /usr/git/repository \
     && cd /usr/git/repository \
-    && git clone https://github.com/PanJiaChen/vue-element-admin.git \
+    && git clone https://github.com/iview/iview-admin.git \
     && ls -ln
-RUN cd /usr/git/repository/vue-element-admin && npm install && npm build:prod
-RUN mkdir -p /usr/www/public && cp /usr/git/repository/vue-element-admin /usr/www/public
+RUN yum install -y sudo
+RUN cd /usr/git/repository/iview-admin && npm install && npm run build
+RUN mkdir -p /usr/www/public && cp /usr/git/repository/iview-admin/dist /usr/www/public
 
 RUN rm -rf /etc/nginx/nginx.conf
 COPY ./nginx.conf /etc/nginx
