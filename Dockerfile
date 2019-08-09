@@ -54,4 +54,4 @@ WORKDIR /usr/www
 EXPOSE 8000
 VOLUME ["/usr/www"]
 
-CMD nginx
+ENTRYPOINT nginx -g "daemon off;"
