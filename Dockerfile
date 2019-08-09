@@ -3,11 +3,8 @@ MAINTAINER 754060604@qq.com
 
 RUN yum install -y wget gcc gcc-c++
 RUN mkdir -p /usr/download/
-RUN cd /usr/download/ && wget -c https://npm.taobao.org/mirrors/node/latest-v11.x/node-v11.0.0-linux-x64.tar.xz \
-    && tar -xf node-v11.0.0-linux-x64.tar.xz \
-    && ln -s /usr/download/node-v11.0.0-linux-x64/bin/node /usr/local/bin/node \
-    && ln -s /usr/download/node-v11.0.0-linux-x64/bin/npm /usr/local/bin/npm \
-    && node -v
+
+RUN curl -sL https://rpm.nodesource.com/setup_10.x | bash - && yum install -y nodejs && node -v
 
 RUN wget -c https://nginx.org/download/nginx-1.17.2.tar.gz
 RUN tar -xf nginx-1.17.2.tar.gz
@@ -46,7 +43,7 @@ RUN mkdir -p /usr/git/repository \
     && ls -ln
 RUN yum install -y sudo
 RUN cd /usr/git/repository/iview-admin && npm install && npm run build
-RUN mkdir -p /usr/www/public && cp /usr/git/repository/iview-admin/dist /usr/www/public
+RUN mkdir -p /usr/www/public && cp -r /usr/git/repository/iview-admin/dist/* /usr/www/public && ls /usr/www/public
 
 RUN rm -rf /etc/nginx/nginx.conf
 COPY ./nginx.conf /etc/nginx
