@@ -44,6 +44,8 @@ RUN mkdir -p /usr/git/repository \
 RUN yum install -y sudo
 RUN cd /usr/git/repository/iview-admin && npm install && npm run build
 RUN mkdir -p /usr/www/public && cp -r /usr/git/repository/iview-admin/dist/* /usr/www/public && ls /usr/www/public
+RUN rm -rf /usr/git/repository && rm -rf nginx-1.17.2 \
+    && npm cache clean -f
 
 RUN rm -rf /etc/nginx/nginx.conf
 COPY ./nginx.conf /etc/nginx
