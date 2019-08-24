@@ -4,8 +4,8 @@ MAINTAINER 754060604@qq.com
 RUN yum install -y wget gcc gcc-c++ pcre-devel openssl openssl-devel git sudo \
     && mkdir -p /usr/download/ \
     && curl -sL https://rpm.nodesource.com/setup_10.x | bash - && yum install -y nodejs && node -v \
-    && wget -c https://nginx.org/download/nginx-1.17.2.tar.gz \\
-    && tar -xf nginx-1.17.2.tar.gz \\
+    && wget -c https://nginx.org/download/nginx-1.17.2.tar.gz \
+    && tar -xf nginx-1.17.2.tar.gz \
     && cd nginx-1.17.2 && sh ./configure --prefix=/usr/local/nginx \
         --sbin-path=/usr/sbin/nginx \
         --conf-path=/etc/nginx/nginx.conf \
