@@ -31,11 +31,10 @@ RUN yum install -y wget gcc gcc-c++ pcre-devel openssl openssl-devel git sudo \
     && make && make install && groupadd nginx && useradd -g nginx -M nginx -s /sbin/nologin \
     && rm -rf nginx-1.17.2 && rm -rf nginx-1.17.2.tar.gz \
     && mkdir -p /usr/git/repository \
-
-RUN cd /usr/git/repository && git clone https://github.com/PanJiaChen/vue-element-admin.git \
+    && cd /usr/git/repository && git clone https://github.com/PanJiaChen/vue-element-admin.git \
     && ls -ln && cd ./vue-element-admin && npm install -g yarn && yarn && yarn run build:prod \
-    && mkdir -p /usr/www/public && cp -r /usr/git/repository/vue-element-admin/dist/* /usr/www/public && ls /usr/www/public \
-    && rm -rf /usr/git/repository && rm -rf nginx-1.17.2 \
+    && mkdir -p /usr/www/public && cp -r ./dist/* /usr/www/public && ls /usr/www/public \
+    && cd / && rm -rf /usr/git/repository && ls -lan \
     && npm cache clean -f && yarn cache clean \
     && rm -rf /etc/nginx/nginx.conf \
     && yum clean all
