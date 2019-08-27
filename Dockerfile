@@ -31,12 +31,12 @@ RUN yum install -y wget gcc gcc-c++ pcre-devel openssl openssl-devel git sudo \
     && make && make install && groupadd nginx && useradd -g nginx -M nginx -s /sbin/nologin \
     && rm -rf nginx-1.17.2 && rm -rf nginx-1.17.2.tar.gz \
     && mkdir -p /usr/git/repository \
-    && cd /usr/git/repository \
-    && git clone https://github.com/iview/iview-admin.git \
-    && ls -ln && cd /usr/git/repository/iview-admin && npm install && npm run build \
-    && mkdir -p /usr/www/public && cp -r /usr/git/repository/iview-admin/dist/* /usr/www/public && ls /usr/www/public \
+
+RUN cd /usr/git/repository && git clone https://github.com/PanJiaChen/vue-element-admin.git \
+    && ls -ln && cd ./vue-element-admin && npm install -g yarn && yarn && yarn run build:prod \
+    && mkdir -p /usr/www/public && cp -r /usr/git/repository/vue-element-admin/dist/* /usr/www/public && ls /usr/www/public \
     && rm -rf /usr/git/repository && rm -rf nginx-1.17.2 \
-    && npm cache clean -f \
+    && npm cache clean -f && yarn cache clean \
     && rm -rf /etc/nginx/nginx.conf \
     && yum clean all
 COPY ./nginx.conf /etc/nginx
