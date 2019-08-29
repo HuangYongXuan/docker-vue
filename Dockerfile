@@ -37,7 +37,7 @@ RUN yum install -y wget gcc gcc-c++ pcre-devel openssl openssl-devel git sudo \
     && cd / && rm -rf /usr/git/repository && ls -lan \
     && npm cache clean -f && yarn cache clean \
     && rm -rf /etc/nginx/nginx.conf \
-    && yum clean all
+    && yum -y remove nodejs* wget gcc gcc-c++ pcre-devel openssl openssl-devel git sudo && yum clean all
 COPY ./nginx.conf /etc/nginx
 
 WORKDIR /usr/www
