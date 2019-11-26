@@ -3,10 +3,9 @@ MAINTAINER 754060604@qq.com
 
 RUN yum install -y wget gcc gcc-c++ pcre-devel openssl openssl-devel git sudo \
     && mkdir -p /usr/download/ \
-    && curl -sL https://rpm.nodesource.com/setup_10.x | bash - && yum install -y nodejs && node -v \
-    && wget -c https://nginx.org/download/nginx-1.17.2.tar.gz \
-    && tar -xf nginx-1.17.2.tar.gz \
-    && cd nginx-1.17.2 && sh ./configure --prefix=/usr/local/nginx \
+    && wget -c https://nginx.org/download/nginx-1.17.6.tar.gz \
+    && tar -xf nginx-1.17.6.tar.gz \
+    && cd nginx-1.17.6 && sh ./configure --prefix=/usr/local/nginx \
         --sbin-path=/usr/sbin/nginx \
         --conf-path=/etc/nginx/nginx.conf \
         --error-log-path=/var/log/nginx/error.log \
@@ -29,13 +28,8 @@ RUN yum install -y wget gcc gcc-c++ pcre-devel openssl openssl-devel git sudo \
         --with-http_stub_status_module \
         --with-http_auth_request_module \
     && make && make install && groupadd nginx && useradd -g nginx -M nginx -s /sbin/nologin \
-    && rm -rf nginx-1.17.2 && rm -rf nginx-1.17.2.tar.gz \
-    && mkdir -p /usr/git/repository \
-    && cd /usr/git/repository && git clone https://github.com/PanJiaChen/vue-element-admin.git \
-    && ls -ln && cd ./vue-element-admin && npm install -g yarn && yarn && yarn run build:prod \
-    && mkdir -p /usr/www/public && cp -r ./dist/* /usr/www/public && ls /usr/www/public \
-    && cd / && rm -rf /usr/git/repository && ls -lan \
-    && npm cache clean -f && yarn cache clean \
+    && rm -rf nginx-1.17.6 && rm -rf nginx-1.17.6.tar.gz \
+    && mkdir -p /usr/www/ \
     && rm -rf /etc/nginx/nginx.conf \
     && yum -y remove nodejs* wget gcc gcc-c++ pcre-devel openssl openssl-devel git sudo && yum clean all
 COPY ./nginx.conf /etc/nginx
