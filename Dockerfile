@@ -1,7 +1,7 @@
 FROM centos:latest
 MAINTAINER 754060604@qq.com
 
-RUN yum install -y wget gcc gcc-c++ pcre-devel openssl openssl-devel git sudo \
+RUN yum install -y wget gcc gcc-c++ pcre-devel openssl openssl-devel git sudo automake autoconf libtool make \
     && mkdir -p /usr/download/ \
     && wget -c https://nginx.org/download/nginx-1.17.6.tar.gz \
     && tar -xf nginx-1.17.6.tar.gz \
@@ -31,7 +31,7 @@ RUN yum install -y wget gcc gcc-c++ pcre-devel openssl openssl-devel git sudo \
     && rm -rf nginx-1.17.6 && rm -rf nginx-1.17.6.tar.gz \
     && mkdir -p /usr/www/ \
     && rm -rf /etc/nginx/nginx.conf \
-    && yum -y remove nodejs* wget gcc gcc-c++ pcre-devel openssl openssl-devel git sudo && yum clean all
+    && yum -y remove wget gcc gcc-c++ pcre-devel openssl openssl-devel git sudo automake autoconf libtool make && yum clean all
 COPY ./nginx.conf /etc/nginx
 
 WORKDIR /usr/www
